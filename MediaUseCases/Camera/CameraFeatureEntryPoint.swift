@@ -8,11 +8,11 @@ struct CameraFeatureEntryPoint: View {
     var body: some View {
         if viewModel.isCameraGranted {
             NavigationStack {
-                NavigationLink("Camera features") {
-                    Text("Hello World")
-                }
                 NavigationLink("Preview") {
                     CameraFeaturePreview()
+                }
+                NavigationLink("Photo Capture") {
+                    CameraFeaturePhotoCapture()
                 }
             }
         } else {

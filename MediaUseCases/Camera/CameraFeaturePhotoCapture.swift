@@ -1,7 +1,7 @@
 import SwiftUI
 import AVFoundation
 
-struct CameraFeaturePreview: View {
+struct CameraFeaturePhotoCapture: View {
     @State var viewModel = ViewModel()
     
     var body: some View {
@@ -15,7 +15,7 @@ struct CameraFeaturePreview: View {
     }
 }
 
-extension CameraFeaturePreview {
+extension CameraFeaturePhotoCapture {
     @Observable
     class ViewModel {
         private(set) var session: AVCaptureSession? = nil
@@ -45,5 +45,5 @@ extension CameraFeaturePreview {
 }
 
 #Preview {
-    CameraFeaturePreview()
+    CameraFeaturePhotoCapture()
 }
