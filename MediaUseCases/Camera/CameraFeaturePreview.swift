@@ -6,7 +6,7 @@ struct CameraFeaturePreview: View {
     
     var body: some View {
         if let session = viewModel.session {
-            PreviewView(session: session)
+            AVCaptureVideoPreviewLayerUIViewRepresentable(session: session)
         } else {
             Button("Tap to start previewing") {
                 viewModel.startPreview()
