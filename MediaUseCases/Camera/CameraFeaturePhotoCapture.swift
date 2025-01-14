@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import Photos
 
 struct CameraFeaturePhotoCapture: View {
     @State var viewModel = ViewModel()
@@ -57,8 +58,22 @@ extension CameraFeaturePhotoCapture {
             guard let photoOutput else { return }
             Task {
                 let photoOutputAsync = AVCapturePhotoOutputAsync(photoOutput)
-                if let photo = await photoOutputAsync.capturePhoto(with: AVCapturePhotoSettings()) {
-                    print(photo)
+                guard
+                    let photo = await photoOutputAsync.capturePhoto(with: AVCapturePhotoSettings()),
+                    let data = photo.fileDataRepresentation()
+                else { return }
+                
+                guard await
+                        PHPhotoLibrary.requestAuthorization(
+                            for: .addOnly
+                        ) == .authorized
+                else { return }
+                
+                try? await
+                PHPhotoLibrary.shared().performChanges {
+                    PHAssetCreationRequest
+                        .forAsset()
+                        .addResource(with: .photo, data: data, options: nil)
                 }
             }
         }
